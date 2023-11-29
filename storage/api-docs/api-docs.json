@@ -1,0 +1,397 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentação da API de Notas Fiscais",
+        "description": "Esta é a documentação Swagger para a API do sistema de controle de notas fiscais, desenvolvido com Laravel. Este documento detalha todos os endpoints relacionados ao gerenciamento de notas fiscais, incluindo cadastro de usuários, autenticação, e CRUD para notas fiscais.",
+        "contact": {
+            "email": "edu_du@icloud.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Servidor da API de Notas Fiscais"
+        }
+    ],
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Register a new user",
+                "description": "Register a new user with name, email, and password.",
+                "operationId": "8a56853624e025573120a09a4c75d468",
+                "requestBody": {
+                    "description": "User's credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "johndoe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "Passw0rd!"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "format": "text",
+                                            "example": "John Doe"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "format": "email",
+                                            "example": "johndoe@example.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Faça login em um usuário",
+                "description": "Login a user using email and password.",
+                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
+                "requestBody": {
+                    "description": "User's login credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "johndoe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "Passw0rd!"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "GeneratedTokenStringHere"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/notas-fiscais": {
+            "get": {
+                "tags": [
+                    "NotasFiscais"
+                ],
+                "summary": "Lista todas as notas fiscais",
+                "operationId": "4990645159a9eb0c787cf78be6fdac15",
+                "responses": {
+                    "200": {
+                        "description": "Operation successful"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "NotasFiscais"
+                ],
+                "summary": "Cria uma nota fiscal",
+                "operationId": "b3320825ca75fdefa9e986471a76f35d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "numero",
+                                    "valor",
+                                    "data_emissao",
+                                    "cnpj_remetente",
+                                    "nome_remetente",
+                                    "cnpj_transportador",
+                                    "nome_transportador"
+                                ],
+                                "properties": {
+                                    "numero": {
+                                        "description": "Unique 9-character string identifier for the nota fiscal",
+                                        "type": "string",
+                                        "example": "123456789"
+                                    },
+                                    "valor": {
+                                        "description": "Numeric value representing the value of nota fiscal, minimum 0.01",
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 1000
+                                    },
+                                    "data_emissao": {
+                                        "description": "Emission date of the nota fiscal, must be today or a past date",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-01-01"
+                                    },
+                                    "cnpj_remetente": {
+                                        "description": "CNPJ of the sender, must be valid",
+                                        "type": "string",
+                                        "example": "04.785.881/0001-54"
+                                    },
+                                    "nome_remetente": {
+                                        "description": "Name of the sender, maximum 100 characters",
+                                        "type": "string",
+                                        "example": "Empresa Exemplo"
+                                    },
+                                    "cnpj_transportador": {
+                                        "description": "CNPJ of the transporter, must be valid",
+                                        "type": "string",
+                                        "example": "43.231.605/0001-04"
+                                    },
+                                    "nome_transportador": {
+                                        "description": "Name of the transporter, maximum 100 characters",
+                                        "type": "string",
+                                        "example": "Transportadora Exemplo"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Nota fiscal created successfully"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/notas-fiscais/{id}": {
+            "get": {
+                "tags": [
+                    "NotasFiscais"
+                ],
+                "summary": "Busca uma nota fiscal especifica",
+                "operationId": "598f7db27b11f8ff98da4e344e05367f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Nota Fiscal ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operation successful"
+                    },
+                    "404": {
+                        "description": "Nota fiscal not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "NotasFiscais"
+                ],
+                "summary": "Atualiza parcialemnte uma nota fiscal existente",
+                "operationId": "11faa898904a59b0b50d746535b540cd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Nota Fiscal ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "numero": {
+                                        "description": "Número da nota fiscal, único, com 9 caracteres",
+                                        "type": "string",
+                                        "example": "123456789"
+                                    },
+                                    "valor": {
+                                        "description": "Valor da nota fiscal, mínimo de 0.01",
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": "100.50"
+                                    },
+                                    "data_emissao": {
+                                        "description": "Data de emissão da nota fiscal, não pode ser futura",
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-01-01"
+                                    },
+                                    "cnpj_remetente": {
+                                        "description": "CNPJ do remetente, válido",
+                                        "type": "string",
+                                        "example": "12345678000123"
+                                    },
+                                    "nome_remetente": {
+                                        "description": "Nome do remetente, até 100 caracteres",
+                                        "type": "string",
+                                        "example": "Empresa Exemplo S/A"
+                                    },
+                                    "cnpj_transportador": {
+                                        "description": "CNPJ do transportador, válido",
+                                        "type": "string",
+                                        "example": "98765432000198"
+                                    },
+                                    "nome_transportador": {
+                                        "description": "Nome do transportador, até 100 caracteres",
+                                        "type": "string",
+                                        "example": "Transportadora Exemplo"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Nota fiscal atualizada com sucesso"
+                    },
+                    "404": {
+                        "description": "Nota fiscal não encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "NotasFiscais"
+                ],
+                "summary": "Excluir uma nota fiscal específica",
+                "operationId": "a61bc88ad77d19d6d0cdd67a5f62d0c7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Nota Fiscal ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Nota fiscal deleted successfully"
+                    },
+                    "404": {
+                        "description": "Nota fiscal not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
