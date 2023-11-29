@@ -1,4 +1,6 @@
 # API de Controle de Notas Fiscais
+<img src="https://i.ibb.co/M8qqP0f/Teste.png" width="300" alt="Descrição da Imagem">
+<img src="https://i.ibb.co/zhnckYf/teste2.png" width="300" alt="Descrição da Imagem">
 
 Este projeto é uma API REST desenvolvida em PHP, utilizando o framework Laravel, para o gerenciamento de notas fiscais de usuários. Foi criado como parte de um desafio técnico para o cargo de Desenvolvedor Backend.
 
@@ -14,6 +16,8 @@ Este projeto é uma API REST desenvolvida em PHP, utilizando o framework Laravel
 - PHP 8+
 - Laravel 10+
 - MySQL
+- PHPUnit
+- ShouldQueue
 
 ## Estrutura dos Dados
 
@@ -29,4 +33,4 @@ Cada nota fiscal contém informações detalhadas como número, valor, data de e
 
 ## Contribuição
 
-Sugestões e contribuições são bem-vindas. Sinta-se à vontade para fazer um fork e enviar um pull request.
+Sugestões e contribuições são bem-vindas.
