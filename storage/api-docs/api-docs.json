@@ -20,8 +20,8 @@
                 "tags": [
                     "Usuários"
                 ],
-                "summary": "Register a new user",
-                "description": "Register a new user with name, email, and password.",
+                "summary": "Registre novo usuário",
+                "description": "Cadastre um novo usuário com nome, e-mail e senha.",
                 "operationId": "8a56853624e025573120a09a4c75d468",
                 "requestBody": {
                     "description": "User's credentials",

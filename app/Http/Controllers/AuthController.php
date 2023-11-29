@@ -14,8 +14,8 @@ class AuthController extends Controller
      * @OA\Post(
      *     path="/api/register",
      *     tags={"Usuários"},
-     *     summary="Register a new user",
-     *     description="Register a new user with name, email, and password.",
+     *     summary="Registre novo usuário",
+     *     description="Cadastre um novo usuário com nome, e-mail e senha.",
      *     @OA\RequestBody(
      *         required=true,
      *         description="User's credentials",
@@ -61,7 +61,6 @@ class AuthController extends Controller
 
         return response()->json($user, 201);
     }
-
 
     /**
      * @OA\Post(
